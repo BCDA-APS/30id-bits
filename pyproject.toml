@@ -1,5 +1,5 @@
 [build-system]
-requires = [ "setuptools>=77.0",]
+requires = [ "setuptools>=77.0", "setuptools_scm[toml]>=8.0", ]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,7 +13,7 @@ classifiers = []
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license
 license = "LicenseRef-ANL-Open-Source-License"
 license-files = ["LICEN[CS]E*"]
-dependencies = [ "apsbits"]
+dependencies = [ "apsbits", "hklpy2", "pyRestTable" ]
 
 authors = [
     { name = "Eric Codrea", email = "ecodrea@anl.gov" },
@@ -27,7 +27,7 @@ maintainers = [
 ]
 
 [tool.copyright]
-copyright = "2014-2025, APS"
+copyright = "2014-2026, APS"
 
 [tool.ruff]
 exclude = [ ".eggs", ".git", ".git-rewrite", ".mypy_cache", ".pytype", ".ruff_cache", ".tox", ".venv", "__pypackages__", "_build", "build", "dist", "venv", ".venv", "docs",]

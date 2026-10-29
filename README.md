@@ -1,13 +1,15 @@
-# BITS Starter
+# 30-ID BITS instrument
 
-Instrument Github Repository to be used with BITS structure at the APS
+[Bluesky Instrument (BITS)](https://github.com/BCDA-APS/BITS) package
+for APS beamline 30-ID.  Built on the
+[`apsbits`](https://github.com/BCDA-APS/apsbits) framework.
 
 
 ## Start a fresh BITS environment with Conda
 
 ```bash
-export ENV_NAME=BITS_env
-conda create -y -n $ENV_NAME python=3.12
+export ENV_NAME=30id-bits
+conda create -y -n $ENV_NAME python=3.12 hkl
 conda activate $ENV_NAME
 pip install apsbits
 ```
@@ -22,9 +24,9 @@ pixi install
 
 ## Creating a New Instrument
 ```bash
-export YOUR_INSTRUMENT_NAME=new_instrument
-create-bits $YOUR_INSTRUMENT_NAME
-pip install -e .
+export YOUR_INSTRUMENT_NAME=id30
+bits-create $YOUR_INSTRUMENT_NAME
+pip install -e .[all]
 ```
 
 
