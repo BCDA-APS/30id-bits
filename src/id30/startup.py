@@ -103,7 +103,7 @@ else:
     from bluesky import plans as bp  # noqa: F401
 
     # map scaler count signals per SPEC config
-    scaler1 = oregistry.find["scaler1"]
+    scaler1 = oregistry.find("scaler1")
     seconds = scaler1.channels.chan01.s
     hmic0 = scaler1.channels.chan02.s
     hmic1 = scaler1.channels.chan03.s
