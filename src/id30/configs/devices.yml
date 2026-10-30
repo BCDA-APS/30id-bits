@@ -95,7 +95,7 @@ apstools.devices.mb_creator:
           diameter: 30idd:m12
           roi_total: {read_pv: "s30_pilatus1:ROIStat1:5:Total_RBV", class: "ophyd.EpicsSignalRO"}
 
-- name: b2_slit
+- name: b2slit
   motors:
     up: 30ida:m58
     down: 30ida:m59
