@@ -237,6 +237,7 @@ apstools.devices.ad_creator:
       - cam:
           class: ophyd.PilatusDetectorCam
       - image
+      - overlay1
       - pva
       #- hdf1:
       #    # FIXME: need correct paths
@@ -245,7 +246,8 @@ apstools.devices.ad_creator:
       #    write_path_template: "/path/to/ioc/tmp/"
       - roi1
       - roistat1
-      - stats1  # any other plugins?
+      - stats1
+      - transform1
 # TODO: Add direct access to these specific channels in startup.py
 # # ana1 = EpicsSignal('s30_pilatus1:ROIStat1:1:Total_RBV', name='ana1', labels=('detectors',))  # Ana1
 # ana1 = pilatus.roistat1.?.total  # FIXME: syntax here
