@@ -1,5 +1,11 @@
 # HERIX Bluesky Cheat Sheet
 
+## Related Resources
+
+Official documentation: [Bluesky](https://blueskyproject.io/bluesky/), [ophyd](https://blueskyproject.io/ophyd/), [apstools](https://bcda-aps.github.io/apstools/latest/), [Tiled](https://blueskyproject.io/tiled/), [areaDetector/ADCore](https://areadetector.github.io/areaDetector/), and [hklpy2](https://blueskyproject.io/hklpy2/).
+
+For advanced interactive questions, see the corresponding [DeepWiki resources](https://deepwiki.com/bluesky/bluesky), [ophyd](https://deepwiki.com/bluesky/ophyd), [apstools](https://deepwiki.com/BCDA-APS/apstools), [Tiled](https://deepwiki.com/bluesky/tiled), [areaDetector/ADCore](https://deepwiki.com/areaDetector/ADCore), and [hklpy2](https://deepwiki.com/bluesky/hklpy2). Verify released behavior against the official documentation.
+
 ## HKL Reference
 
 The HERIX diffractometer uses hklpy2 with E4CH geometry. See the [official hklpy2 documentation](https://blueskyproject.io/hklpy2/) for geometry, solver, orientation, and reciprocal-space workflows.

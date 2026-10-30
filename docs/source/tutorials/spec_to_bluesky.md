@@ -48,9 +48,13 @@ herix.phi
 herix.tth
 ```
 
-The HKL calculation and orientation workflow is still being developed. Do not assume that every historical SPEC macro has a direct equivalent yet.
+hklpy2 provides the HKL calculation, orientation, and solver workflows for
+the [E4CH geometry](https://blueskyproject.io/hklpy2/diffractometers.html#geometries-hkl-soleil-e4ch). The HERIX instrument-specific workflow is still being built,
+so do not assume that every historical SPEC macro has a direct equivalent yet.
 
-For the hklpy2 concepts, geometry, reciprocal-space calculations, orientation, and solver workflows, see the [hklpy2 documentation](https://blueskyproject.io/hklpy2/). An additional community-maintained AI-assisted overview is available at [DeepWiki: hklpy2](https://deepwiki.com/bluesky/hklpy2); verify operational details against the official documentation and this instrument configuration.
+For hklpy2 concepts, geometry, reciprocal-space calculations, orientation, and
+solver workflows, see the [hklpy2
+documentation](https://blueskyproject.io/hklpy2/). For advanced questions, use the interactive AI tool at [DeepWiki: hklpy2](https://deepwiki.com/bluesky/hklpy2) to query the project beyond its documented examples. Verify operational details against the official documentation and this instrument configuration.
 
 ## Kohzu Energy
 

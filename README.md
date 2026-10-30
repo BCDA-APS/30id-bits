@@ -19,6 +19,28 @@ files written during Bluesky runs.  Database support is expected to be ready bef
 This documentation is written for users who already know SPEC. Bluesky-specific
 concepts are introduced where they affect day-to-day operation.
 
+## Related Resources
+
+Official project documentation:
+
+- [Bluesky](https://blueskyproject.io/bluesky/)
+- [ophyd](https://blueskyproject.io/ophyd/)
+- [apstools](https://bcda-aps.github.io/apstools/latest/)
+- [Tiled](https://blueskyproject.io/tiled/)
+- [areaDetector/ADCore](https://areadetector.github.io/areaDetector/)
+- [hklpy2](https://blueskyproject.io/hklpy2/)
+
+For advanced questions, the corresponding interactive AI resources are available through DeepWiki:
+
+- [Bluesky on DeepWiki](https://deepwiki.com/bluesky/bluesky)
+- [ophyd on DeepWiki](https://deepwiki.com/bluesky/ophyd)
+- [apstools on DeepWiki](https://deepwiki.com/BCDA-APS/apstools)
+- [Tiled on DeepWiki](https://deepwiki.com/bluesky/tiled)
+- [areaDetector/ADCore on DeepWiki](https://deepwiki.com/areaDetector/ADCore)
+- [hklpy2 on DeepWiki](https://deepwiki.com/bluesky/hklpy2)
+
+Use the official documentation as the authority for released behavior and configuration details.
+
 ## Quick Start
 
 With the environment installed on the workstation:
