@@ -30,7 +30,7 @@ ipython -i -c "from id30.startup import *"
 
 This starts IPython for a Bluesky session, ending with the console prompt.
 
-*Details*: Startup loads the RunEngine, devices, simulator plans, SPEC data-file
+*Details*: Startup loads the RunEngine, devices, simulators, SPEC data-file
 callback, and standard IPython helpers. Hardware connection requires access to
 the 30-ID EPICS network.
 
