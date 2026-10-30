@@ -112,6 +112,7 @@ if host_on_aps_subnet():
 # Devices with the label 'baseline' will be added to the baseline stream.
 setup_baseline_stream(sd, oregistry, connect=False)
 
+
 def motor_start_preprocessor(plan):
     """Report all motor positions.
 
@@ -124,6 +125,7 @@ def motor_start_preprocessor(plan):
     motors which are children of devices.
     """
     return label_stream_wrapper(plan, "motor")
+
 
 RE.preprocessors.append(motor_start_preprocessor)
 
