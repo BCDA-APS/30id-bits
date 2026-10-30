@@ -1,26 +1,13 @@
 # Guarneri-style device YAML configuration
 
-# Motor PVs and controller-unit mappings were checked with spec2ophyd
-# against the HERIX SPEC config. The EPICS_M2 unit determines the IOC prefix;
-# it must not be flattened to a single 30idb:m<channel> namespace.
+# NOTE: config defines 164 motors, did we get them all?
 
 apsbits.utils.sim_creator.predefined_device:
 - { creator: ophyd.sim.motor, name: sim_motor }
 - { creator: ophyd.sim.noisy_det, name: sim_det }
 
-# Unambiguous SPEC `gm` groups converted to MotorBundle devices. These bundles
-# preserve the established SPEC group names. Standalone motor alternatives
-# are retained as commented reference entries in the EpicsMotor section.
-apstools.devices.mb_creator:
-- name: wbs
-  prefix: "30ida:"
-  motors:
-    vertical_bottom: "m1"
-    horizontal_right: "m2"
-    vertical_top: "m3"
-    horizontal_left: "m4"
-  labels: ["slit"]
 
+apstools.devices.mb_creator:
 - name: crl
   prefix: "30ida:"
   motors:
@@ -29,6 +16,26 @@ apstools.devices.mb_creator:
     ax: "m8"
     ay: "m21"
   labels: ["crl"]
+
+- name: bslit
+  prefix: "30ida:"
+  # TODO: apstools might have a support class if there is EPICS database support
+  motors:
+    up: m18
+    down: m17
+    out: m19
+    in: m20
+  labels: ["slit"]
+
+- name: cslit
+  prefix: "30idc:"
+  # TODO: apstools might have a support class if there is EPICS database support
+  motors:
+    up: m18
+    down: m17
+    out: m20
+    in: m19
+  labels: ["slit"]
 
 - name: hhlm
   prefix: "30ida:"
@@ -43,7 +50,34 @@ apstools.devices.mb_creator:
     yt: "m16"
   labels: ["mirror"]
 
-- name: hmono
+- name: hfm
+  prefix: "30idbt:"
+  motors:
+    x: "pm7"
+    th: "pm8"
+    curv: pm3
+    ell: "pm4"
+    fu: "m14"
+    fd: "m15"
+    x1u: "m12"
+    x2d: "m13"
+    y1d: "m9"
+    y2o: "m10"
+    y3i: "m11"
+  labels: ["HFM"]
+
+- name: hkbt
+  prefix: "30idbt:HKBtable."
+  motors:
+    x: "X"
+    y: "Y"
+    z: "Z"
+    ax: "AX"
+    ay: "AY"
+    az: "AZ"
+  labels: ["HKB_table"]
+
+- name: hrm
   prefix: "30ida:"
   motors:
     x1: "m33"
@@ -59,170 +93,141 @@ apstools.devices.mb_creator:
     tilt3: "m43"
     mini1: "m46"
     mini2: "m47"
-    ic2_y: "m68"
-    ic3_y: "m69"
+    ic1x: "m22"
+    ic1y: "m67"
+    ic2x: "m23"
+    ic2y: "m68"
+    ic3x: "m24"
+    ic3y: "m69"
   labels: ["monochromator"]
 
-# The SPEC `arm` group contains tth plus five auxiliary Herix-arm axes.
-# tth is owned by the E4CH device; these five axes are bundled here.
-- name: herix_arm
+- name: micro
   prefix: "30idc:"
   motors:
-    x: "x"
-    y: "y"
-    z: "z"
-    ax: "ax"
-    ay: "ay"
-  labels: ["herix_arm", "detector"]
+    x: "m37"
+    y: "m36"
+    z: "m38"
+
+- name: sample_slit
+  prefix: "30idc:"
+  # TODO: apstools might have a support class if there is EPICS database support
+  motors:
+    x: m58
+    y: m57
+  labels: ["slit"]
+
+- name: vfm
+  prefix: "30idbt:"
+  motors:
+    x: "pm9"
+    yaw: "pm10"
+    y: "pm5"
+    th: "pm6"
+    curv: "pm1"
+    ell: "pm2"
+    fu: "m5"
+    fd: "m6"
+    x1u: "m1"
+    x2d: "m2"
+    y1u: "m3"
+    y2d: "m4"
+  labels: ["VFM"]
+
+- name: wbslit
+  prefix: "30ida:"
+  # TODO: apstools might have a support class if there is EPICS database support
+  motors:
+    vertical_bottom: "m1"
+    horizontal_right: "m2"
+    vertical_top: "m3"
+    horizontal_left: "m4"
+  labels: ["slit"]
+
 
 hklpy2.creator:
 - name: herix
   geometry: E4CH
   solver: hkl_soleil
-  prefix: "30idc:"
   reals:
-    tth: Herix_theta
-    th: m26
-    chi: m27
-    phi: m28
+    th: 30idc:m26
+    chi: 30idc:m27
+    phi: 30idc:m28
+    # tth: 30idc:Herix_theta  # FIXME: PV not found
+    tth: 30idc:m25
+    # TODO: additional motors on the detector arm (PVs not responding 2026-10-30)
+    # x: "30idc:Herix_x"
+    # y: "30idc:Herix_y"
+    # z: "30idc:Herix_z"
+    # ax: "30idc:Herix_ax"
+    # ay: "30idc:Herix_ay"
   labels: ["diffractometer"]
 
 - name: simherix
   geometry: E4CH
   solver: hkl_soleil
+  reals: ["th", "chi", "phi", "tth"]
   labels: ["diffractometer"]
 
-# EPICS motors not owned by a bundle or the HERIX diffractometer.
+
 ophyd.EpicsMotor:
-# EPICS_M2:0, beamline optics and slits
-# Grouped by `wbs`, so the standalone declarations remain reference-only.
-# - {name: wbsvb, prefix: "30ida:m1", labels: ["motor", "slit"]}
-# - {name: wbshr, prefix: "30ida:m2", labels: ["motor", "slit"]}
-# - {name: wbsvt, prefix: "30ida:m3", labels: ["motor", "slit"]}
-# - {name: wbshl, prefix: "30ida:m4", labels: ["motor", "slit"]}
-# Grouped by `crl`, so the standalone declarations remain reference-only.
-# - {name: crly, prefix: "30ida:m5", labels: ["motor"]}
-# - {name: crlx, prefix: "30ida:m6", labels: ["motor"]}
+# TODO: did we name all motors from config not assigned otherwise here?
 - {name: bim1, prefix: "30ida:m7", labels: ["motor"]}
-# - {name: crlax, prefix: "30ida:m8", labels: ["motor"]}
-# Grouped by `hhlm`, so the standalone declarations remain reference-only.
-# - {name: hhlmth, prefix: "30ida:m9", labels: ["motor", "mirror"]}
-# - {name: hhlmy1, prefix: "30ida:m10", labels: ["motor", "mirror"]}
-# - {name: hhlmz2, prefix: "30ida:m11", labels: ["motor", "mirror"]}
-# - {name: hhlmth2, prefix: "30ida:m12", labels: ["motor", "mirror"]}
-# - {name: hhlmx2, prefix: "30ida:m13", labels: ["motor", "mirror"]}
-# - {name: hhlmch2, prefix: "30ida:m14", labels: ["motor", "mirror"]}
-# - {name: hhlmxt, prefix: "30ida:m15", labels: ["motor", "mirror"]}
-# - {name: hhlmyt, prefix: "30ida:m16", labels: ["motor", "mirror"]}
-- {name: bslvd, prefix: "30ida:m17", labels: ["motor", "slit"]}
-- {name: bslvu, prefix: "30ida:m18", labels: ["motor", "slit"]}
-- {name: bslho, prefix: "30ida:m19", labels: ["motor", "slit"]}
-- {name: bslhi, prefix: "30ida:m20", labels: ["motor", "slit"]}
-# Grouped by `crl`, so the standalone declaration remains reference-only.
-# - {name: crlay, prefix: "30ida:m21", labels: ["motor"]}
-# Note: `crl` currently includes the SPEC group's physical EPICS motors;
-# `crlax` and `crlay` remain commented reference entries here.
-# Secondary monochromator: `secth` is the Bragg-angle motor used by
-# secmono.mac for E3 calculations and scans. SPEC does not group `secy` or
-# `secx` with it, and no macro use was found for those two axes.
+
+- {name: cam_x, prefix: "30idc:m29", labels: ["motor"]}
+- {name: cam_y, prefix: "30idc:m22", labels: ["motor",]}
+- {name: cam_z, prefix: "30idc:m31", labels: ["motor"]}  # aka: focus
+
+- {name: phip, prefix: "30idMCS2:m1", labels: ["motor", "PHI_plus"]}
+
+- {name: s2th, prefix: "30idc:m25", labels: ["motor", "spectrometer"]}
+
 - {name: secth, prefix: "30ida:m57", labels: ["motor", "secondary_mono"]}
 - {name: secy, prefix: "30ida:m62", labels: ["motor", "secondary_mono"]}
 - {name: secx, prefix: "30ida:m60", labels: ["motor", "secondary_mono"]}
 
-# EPICS_M2:0, high-resolution monochromator
-# Grouped by `hmono`, so the standalone declarations remain reference-only.
-# - {name: hrmx1, prefix: "30ida:m33", labels: ["motor", "monochromator"]}
-# - {name: hrmx2, prefix: "30ida:m34", labels: ["motor", "monochromator"]}
-# - {name: hrmx3, prefix: "30ida:m35", labels: ["motor", "monochromator"]}
-# - {name: hrmth1, prefix: "30ida:m36", labels: ["motor", "monochromator"]}
-# - {name: hrmth2, prefix: "30ida:m37", labels: ["motor", "monochromator"]}
-# - {name: hrmth3, prefix: "30ida:m38", labels: ["motor", "monochromator"]}
-# - {name: hrmy1, prefix: "30ida:m39", labels: ["motor", "monochromator"]}
-# - {name: hrmy2, prefix: "30ida:m40", labels: ["motor", "monochromator"]}
-# - {name: hrmy3, prefix: "30ida:m41", labels: ["motor", "monochromator"]}
-# - {name: hrmtil1, prefix: "30ida:m42", labels: ["motor", "monochromator"]}
-# - {name: hrmtil3, prefix: "30ida:m43", labels: ["motor", "monochromator"]}
-# - {name: hmmini1, prefix: "30ida:m46", labels: ["motor", "monochromator"]}
-# - {name: hmmini2, prefix: "30ida:m47", labels: ["motor", "monochromator"]}
-
-# EPICS_M2:2, HERIX spectrometer and sample environment
-- {name: s2th, prefix: "30idc:m25", labels: ["motor", "spectrometer"]}
-- {name: cam_x, prefix: "30idc:m29", labels: ["motor", "detector"]}
-# Shared with `hrmic1x`; both are reference-only under this configuration.
-# - {name: cam_y, prefix: "30idc:m22", labels: ["motor", "detector"]}
-- {name: cam_z, prefix: "30idc:m31", labels: ["motor", "detector"]}
-# These are unit-2 EPICS motors, distinct from the unit-0 bundle members.
 - {name: stbly, prefix: "30idc:m16", labels: ["motor", "sample"]}
 - {name: stblx, prefix: "30idc:m21", labels: ["motor", "sample"]}
 - {name: stblz, prefix: "30idc:m23", labels: ["motor", "sample"]}
-- {name: slity, prefix: "30idc:m58", labels: ["motor", "slit"]}
-- {name: slitx, prefix: "30idc:m57", labels: ["motor", "slit"]}
-# `tth` is owned by the `herix` E4CH device; this is a reference entry.
-# - {name: tth, prefix: "30idc:Herix_theta", labels: ["motor", "diffractometer"]}
-# These soft motors are owned by the active `herix_arm` bundle; the
-# standalone forms remain commented here as reference.
-# - {name: hx, prefix: "30idc:Herix_x", labels: ["motor", "diffractometer"]}
-# - {name: hy, prefix: "30idc:Herix_y", labels: ["motor", "diffractometer"]}
-# - {name: hz, prefix: "30idc:Herix_z", labels: ["motor", "diffractometer"]}
-# - {name: hax, prefix: "30idc:Herix_ax", labels: ["motor", "diffractometer"]}
-# - {name: hay, prefix: "30idc:Herix_ay", labels: ["motor", "diffractometer"]}
+
+# Remember, energy units here are "meV"
 - {name: herixE, prefix: "30idc:SM13", labels: ["motor", "energy"]}
 - {name: nrsE, prefix: "30idc:SM18", labels: ["motor", "energy"]}
-# hrmic2y and hrmic3y are included in the active `hmono` bundle.
-# These standalone entries are retained only as reference.
-# - {name: hrmic2y, prefix: "30ida:m68", labels: ["motor", "detector"]}
-# - {name: hrmic3y, prefix: "30ida:m69", labels: ["motor", "detector"]}
-# hrmic1y/hrmic1x/hrmic2x/hrmic3x are unit-0 motors.
-- {name: hrmic1y, prefix: "30ida:m67", labels: ["motor", "detector"]}
-- {name: hrmic1x, prefix: "30ida:m22", labels: ["motor", "detector"]}
-- {name: hrmic2x, prefix: "30ida:m23", labels: ["motor", "detector"]}
-- {name: hrmic3x, prefix: "30ida:m24", labels: ["motor", "detector"]}
-# The E4CH axes are owned by `herix`; `tth` uses the named soft-motor PV.
 
-# Counter devices. The scaler channel mapping and PV suffixes come directly
-# from CNT000-CNT035 in the SPEC config.
+
 ophyd.scaler.ScalerCH:
-- name: scaler1
+- name: scaler1b
   prefix: "30idb:scaler1"
   labels: ["scaler", "detector"]
+  # TODO: Add direct access to these specific channels (counters) in startup.py
+  # sec = scaler1.channels.chan01.s
+  # hmic0 = scaler1.channels.chan02.s
+  # hmic1 = scaler1.channels.chan03.s
+  # hmic2 = scaler1.channels.chan04.s
+  # hmic3 = scaler1.channels.chan05.s
+  # pinb = scaler1.channels.chan06.s
+  # ampv = scaler1.channels.chan07.s
+  # amph = scaler1.channels.chan08.s
+  # fp = scaler1.channels.chan09.s
+  # fd = scaler1.channels.chan10.s
+  # apdb = scaler1.channels.chan11.s
+  # apd4 = scaler1.channels.chan12.s
+  # apdv = scaler1.channels.chan13.s
+  # apdh = scaler1.channels.chan14.s
+
 
 ophyd.EpicsSignal:
-- {name: aim_adc1_r0, prefix: "30idb:aim_adc1.R0", labels: ["detector"]}
-- {name: aim_adc1_r1, prefix: "30idb:aim_adc1.R1", labels: ["detector"]}
-- {name: aim_adc1_r2, prefix: "30idb:aim_adc1.R2", labels: ["detector"]}
-- {name: scaler1_userTran1J, prefix: "30idb:1:userTran1.J", labels: ["detector"]}
-- {name: temperature1, prefix: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
-- {name: temperature2, prefix: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
-- {name: temperature3, prefix: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
+# TODO: Canberra AIM ADC?  apstools or ophyd has a device class?
+- {name: aim_adc1_r0, prefix: "30idb:aim_adc1.R0", labels: ["AIM-ADC"]}
+- {name: aim_adc1_r1, prefix: "30idb:aim_adc1.R1", labels: ["AIM-ADC"]}
+- {name: aim_adc1_r2, prefix: "30idb:aim_adc1.R2", labels: ["AIM-ADC"]}
 
-# Existing BITS examples retained for future device additions. These examples
-# are inactive and are not part of the active device inventory.
-# ophyd.Signal:
-# - name: test
-#   value: 50.7
-# - name: t2
-#   value: 2
+- {name: scaler1_userTran1J, prefix: "30idb:1:userTran1.J"}
 
-# apstools.synApps.Optics2Slit2D_HV:
-# - name: slit1
-#   prefix: ioc:Slit1
-#   labels: ["slits"]
+# TODO: Change to read-only?
+- {name: hstemp1, prefix: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
+- {name: hstemp2, prefix: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
+- {name: hstemp3, prefix: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
 
-# hkl.SimulatedE4CV:
-# - name: sim4c
-#   prefix: ""
-#   labels: ["diffractometer"]
-
-# ophyd.scaler.ScalerCH:
-# - name: scaler1
-#   prefix: vme:scaler1
-#   labels: ["scalers", "detectors"]
-
-# ophyd.EpicsMotor:
-# - {name: m1, prefix: gp:m1, labels: ["motor"]}
-# - {name: m2, prefix: gp:m2, labels: ["motor"]}
-# - {name: m3, prefix: gp:m3, labels: ["motor"]}
-# - {name: m4, prefix: gp:m4, labels: ["motor"]}
 
 # apstools.devices.ad_creator:
 #   - name: pilatus
@@ -239,14 +244,27 @@ ophyd.EpicsSignal:
 #       #    read_path_template: "/path/to/bluesky/tmp/"
 #       #    write_path_template: "/path/to/ioc/tmp/"
 #       - roi1
+#       - roistat1
 #       - stats1  # any other plugins?
+# TODO: Add direct access to these specific channels in startup.py
+# # ana1 = EpicsSignal('s30_pilatus1:ROIStat1:1:Total_RBV', name='ana1', labels=('detectors',))  # Ana1
+# ana1 = pilatus.roistat1.?.total  # FIXME: syntax here
+# ana2 = EpicsSignal('s30_pilatus1:ROIStat1:6:Total_RBV', name='ana2', labels=('detectors',))  # Ana2
+# ana3 = EpicsSignal('s30_pilatus1:ROIStat1:2:Total_RBV', name='ana3', labels=('detectors',))  # Ana3
+# ana4 = EpicsSignal('s30_pilatus1:ROIStat1:7:Total_RBV', name='ana4', labels=('detectors',))  # Ana4
+# ana5 = EpicsSignal('s30_pilatus1:ROIStat1:3:Total_RBV', name='ana5', labels=('detectors',))  # Ana5
+# ana6 = EpicsSignal('s30_pilatus1:ROIStat1:8:Total_RBV', name='ana6', labels=('detectors',))  # Ana6
+# ana7 = EpicsSignal('s30_pilatus1:ROIStat1:4:Total_RBV', name='ana7', labels=('detectors',))  # Ana7
+# ana8 = EpicsSignal('s30_pilatus1:ROIStat1:9:Total_RBV', name='ana8', labels=('detectors',))  # Ana8
+# ana9 = EpicsSignal('s30_pilatus1:ROIStat1:5:Total_RBV', name='ana9', labels=('detectors',))  # Ana9
 
-# Not yet declaratively represented:
+# Not yet represented declaratively:
 # - MAC_MOT/PSE_MAC_MOT/ANC300 motors need controller-specific device
 #   classes and PV prefixes, not just an EpicsMotor prefix.
-# - The remaining SPEC EPICS_PV counters need individual EpicsSignal
-#   declarations; scaler and temperature signals are already declared.
-# - The Pilatus area detector needs an AD/ophyd detector class and file plugin
-#   paths. Its ROIStat1 counter is therefore not declared yet.
-# - The HERIX arm axes are grouped as `herix_arm`; tth remains owned by
-#   the E4CH diffractometer.
+
+# TODO: In SPEC, Attocube channels `anc1` and `anc2` do not come from EPICS.
+#     The ANC300 documentation confirms that the controller is accessed over Ethernet or serial, with a host/device configuration, not through EPICS PVs:
+#     - install/spec_6.13.07_alma97_x64_APS_102934/help/anc.rst:18-36
+#     It also states that ANC300 controllers cannot report actual position; SPEC estimates position during motion:
+#     - .../help/anc.rst:46-51
+#     So anc1 and anc2 have SPEC motor mnemonics and direct ANC300 channels, but no corresponding EPICS PV names in this configuration.
