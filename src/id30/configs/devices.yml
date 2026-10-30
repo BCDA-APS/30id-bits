@@ -1,6 +1,7 @@
 # Guarneri-style device YAML configuration
 
 # NOTE: config defines 164 motors, did we get them all?
+# 30ida:m1 .. 48 defined, nothing higher
 
 apsbits.utils.sim_creator.predefined_device:
 - { creator: ophyd.sim.motor, name: sim_motor }
@@ -8,6 +9,96 @@ apsbits.utils.sim_creator.predefined_device:
 
 
 apstools.devices.mb_creator:
+
+- name: apd
+  motors:
+    th: 30idb:m19
+    x: 30idb:m23
+    y: 30idb:m24
+  labels: ["FWD-APD"]
+
+- name: analyzer
+  motors:
+    an1:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m39
+          ay: 30idc:m40
+          diameter: 30idd:m9
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:1:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an2:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m41
+          ay: 30idc:m42
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:6:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an3:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m43
+          ay: 30idc:m44
+          diameter: 30idd:m10
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:2:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an4:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m45
+          ay: 30idc:m46
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:7:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an5:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m47
+          ay: 30idc:m48
+          diameter: 30idc:SM20
+          focus: 30idd:m13
+          pin: 30idd:m3
+          slit: 30idc:m59
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:3:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an6:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m49
+          ay: 30idc:m50
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:8:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an7:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m51
+          ay: 30idc:m52
+          diameter: 30idd:m11
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:4:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an8:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m53
+          ay: 30idc:m54
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:9:Total_RBV", class: "ophyd.EpicsSignalRO"}
+    an9:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          ax: 30idc:m55
+          ay: 30idc:m56
+          diameter: 30idd:m12
+          roi_total: {read_pv: "s30_pilatus1:ROIStat1:5:Total_RBV", class: "ophyd.EpicsSignalRO"}
+
+- name: b2_slit
+  motors:
+    up: 30ida:m58
+    down: 30ida:m59
+    inboard: 30ida:m61
+    outboard: 30ida:m63
+  labels: ["slit"]
+
 - name: crl
   prefix: "30ida:"
   motors:
@@ -27,6 +118,13 @@ apstools.devices.mb_creator:
     inboard: m20
   labels: ["slit"]
 
+- name: btable
+  motors:
+    x: 30idb:SM7
+    y: 30idb:SM10
+    z: 30idb:SM9
+  labels: ["B-table"]
+
 - name: cslit
   prefix: "30idc:"
   # TODO: apstools might have a support class if there is EPICS database support
@@ -36,6 +134,14 @@ apstools.devices.mb_creator:
     outboard: m20
     inboard: m19
   labels: ["slit"]
+
+- name: heat_stage
+  motors:
+    # TODO: Change to read-only?  PVs not found 2026-10-30
+    temperature1: {read_pv: "30idct:D1Ch1_calc.VAL", class: "ophyd.EpicsSignal"}
+    temperature2: {read_pv: "30idct:D1Ch2_calc.VAL", class: "ophyd.EpicsSignal"}
+    temperature3: {read_pv: "30idct:D1Ch3_calc.VAL", class: "ophyd.EpicsSignal"}
+  labels: ["Heat-Stage"]
 
 - name: hhlm
   prefix: "30ida:"
@@ -107,20 +213,56 @@ apstools.devices.mb_creator:
     y: "m36"
     z: "m38"
 
-- name: sample_slit
-  prefix: "30idc:"
-  # TODO: apstools might have a support class if there is EPICS database support
+- name: phpl
   motors:
-    x: m58
-    y: m57
-  labels: ["slit"]
+    x: "30ida:m26"
+    y: "30ida:m25"
+    th: "30ida:SM1"
+    thc: "30ida:m72"
 
-- name: sample_table
+- name: prosilica
   motors:
-    x: 30idc:m21
-    y: 30idc:m16
-    z: 30idc:m23
-  labels: ["sample", "table"]
+    zoom: 30idb:m17
+    focus: 30idb:m18
+  labels: ["Prosilica"]
+
+- name: rubyc
+  motors:
+    focus: '30idc:m64'
+    zoom: '30idc:m4'
+    ay: '30idc:m24'
+    x: '30idd:m1'
+    y: '30idd:m14'
+  labels: ["Rubyc"]
+
+- name: sample_motors
+  labels: ["sample"]
+  motors:
+    b:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          x_b: 30idb:m25
+          y_b: 30idb:m26
+          z_b: 30idb:m27
+          chi: 30idb:m10
+          phi: 30idb:m28
+    slit:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        # TODO: apstools might have a support class if there is EPICS database support
+        motors:
+          x: 30idc:m58
+          y: 30idc:m57
+        labels: ["slit"]
+    table:
+      factory:
+        function: apstools.devices.motor_factory.mb_class_factory
+        motors:
+          x: 30idc:m21
+          y: 30idc:m16
+          z: 30idc:m23
+        labels: ["table"]
 
 - name: vfm
   prefix: "30idbt:"
@@ -177,18 +319,35 @@ hklpy2.creator:
 
 
 ophyd.EpicsMotor:
-# TODO: did we name all motors from config not assigned otherwise here?
+
 - {name: bim1, prefix: "30ida:m7", labels: ["motor"]}
 
 - {name: cam_x, prefix: "30idc:m29", labels: ["motor"]}
 - {name: cam_y, prefix: "30idc:m22", labels: ["motor",]}
 - {name: cam_z, prefix: "30idc:m31", labels: ["motor"]}  # aka: focus
 
+- {name: fpd_x, prefix: "30idd:m4", labels: ["motor", "FPD-X"]}
+
+- {name: geth, prefix: "30ida:m27", labels: ["motor", "Ge_th"]}
+
+- {name: tab_x1, prefix: "30idb:m20", labels: ["motor", "Table_X1_U"]}
+
 - {name: phip, prefix: "30idMCS2:m1", labels: ["motor", "PHI_plus"]}
+
+- {name: rbs_xy, prefix: "30idc:m30", labels: ["motor"]}
 
 - {name: secth, prefix: "30ida:m57", labels: ["motor", "secondary_mono"]}
 - {name: secy, prefix: "30ida:m62", labels: ["motor", "secondary_mono"]}
 - {name: secx, prefix: "30ida:m60", labels: ["motor", "secondary_mono"]}
+
+- {name: tab_x1, prefix: "30idb:m20", labels: ["motor", "Table_X1_U"]}
+
+# TODO: grouping?
+- {name: xu, prefix: "30idc:m9", labels: ["motor"]}
+- {name: yu, prefix: "30idc:m11", labels: ["motor"]}
+- {name: zu, prefix: "30idc:m10", labels: ["motor"]}
+- {name: xd, prefix: "30idc:m12", labels: ["motor"]}
+- {name: yd, prefix: "30idc:m13", labels: ["motor"]}
 
 # Remember, energy units here are "meV"
 - {name: herixE, prefix: "30idc:SM13", labels: ["motor", "energy"]}
@@ -224,11 +383,6 @@ ophyd.EpicsSignal:
 
 - {name: scaler1_userTran1J, read_pv: "30idb:1:userTran1.J"}
 
-# TODO: Change to read-only?  PVs not found 2026-10-30
-# - {name: hstemp1, read_pv: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
-# - {name: hstemp2, read_pv: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
-# - {name: hstemp3, read_pv: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
-
 
 apstools.devices.ad_creator:
   - name: pilatus
@@ -249,17 +403,6 @@ apstools.devices.ad_creator:
       - roistat1
       - stats1
       - transform1
-# TODO: Add direct access to these specific channels in startup.py
-# # ana1 = EpicsSignal('s30_pilatus1:ROIStat1:1:Total_RBV', name='ana1', labels=('detectors',))  # Ana1
-# ana1 = pilatus.roistat1.?.total  # FIXME: syntax here
-# ana2 = EpicsSignal('s30_pilatus1:ROIStat1:6:Total_RBV', name='ana2', labels=('detectors',))  # Ana2
-# ana3 = EpicsSignal('s30_pilatus1:ROIStat1:2:Total_RBV', name='ana3', labels=('detectors',))  # Ana3
-# ana4 = EpicsSignal('s30_pilatus1:ROIStat1:7:Total_RBV', name='ana4', labels=('detectors',))  # Ana4
-# ana5 = EpicsSignal('s30_pilatus1:ROIStat1:3:Total_RBV', name='ana5', labels=('detectors',))  # Ana5
-# ana6 = EpicsSignal('s30_pilatus1:ROIStat1:8:Total_RBV', name='ana6', labels=('detectors',))  # Ana6
-# ana7 = EpicsSignal('s30_pilatus1:ROIStat1:4:Total_RBV', name='ana7', labels=('detectors',))  # Ana7
-# ana8 = EpicsSignal('s30_pilatus1:ROIStat1:9:Total_RBV', name='ana8', labels=('detectors',))  # Ana8
-# ana9 = EpicsSignal('s30_pilatus1:ROIStat1:5:Total_RBV', name='ana9', labels=('detectors',))  # Ana9
 
 # Not yet represented declaratively:
 # - MAC_MOT/PSE_MAC_MOT/ANC300 motors need controller-specific device
