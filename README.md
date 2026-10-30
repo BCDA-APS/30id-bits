@@ -5,8 +5,8 @@ beamline 30-ID HERIX. It is built on the
 [`apsbits`](https://github.com/BCDA-APS/apsbits) framework.
 
 **NOTE**: This instrument is not yet configured to save Bluesky runs to a
-persistent database.  For now, the only permanent record are the SPEC data
-files.  Database support is expected to be ready before 2026-12-31.
+persistent database.  For now, the only permanent records are the SPEC data
+files written during Bluesky runs.  Database support is expected to be ready before 2026-12-31.
 
 ## Where to start
 
