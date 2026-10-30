@@ -30,7 +30,7 @@ maintainers = [
 copyright = "2014-2026, APS"
 
 [tool.ruff]
-exclude = [ ".eggs", ".git", ".git-rewrite", ".mypy_cache", ".pytype", ".ruff_cache", ".tox", ".venv", "__pypackages__", "_build", "build", "dist", "venv", ".venv", "docs",]
+exclude = [ ".eggs", ".git", ".git-rewrite", ".mypy_cache", ".pytype", ".ruff_cache", ".tox", ".venv", "__pypackages__", "_build", "build", "dist", "venv", ".venv", "docs", "src/id30/configs/from-spec-config.py",]
 line-length = 88
 indent-width = 4
 target-version = "py312"

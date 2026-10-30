@@ -216,16 +216,16 @@ ophyd.scaler.ScalerCH:
 
 ophyd.EpicsSignal:
 # TODO: Canberra AIM ADC?  apstools or ophyd has a device class?
-- {name: aim_adc1_r0, prefix: "30idb:aim_adc1.R0", labels: ["AIM-ADC"]}
-- {name: aim_adc1_r1, prefix: "30idb:aim_adc1.R1", labels: ["AIM-ADC"]}
-- {name: aim_adc1_r2, prefix: "30idb:aim_adc1.R2", labels: ["AIM-ADC"]}
+- {name: aim_adc1_r0, read_pv: "30idb:aim_adc1.R0", labels: ["AIM-ADC"]}
+- {name: aim_adc1_r1, read_pv: "30idb:aim_adc1.R1", labels: ["AIM-ADC"]}
+- {name: aim_adc1_r2, read_pv: "30idb:aim_adc1.R2", labels: ["AIM-ADC"]}
 
-- {name: scaler1_userTran1J, prefix: "30idb:1:userTran1.J"}
+- {name: scaler1_userTran1J, read_pv: "30idb:1:userTran1.J"}
 
 # TODO: Change to read-only?
-- {name: hstemp1, prefix: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
-- {name: hstemp2, prefix: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
-- {name: hstemp3, prefix: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
+- {name: hstemp1, read_pv: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
+- {name: hstemp2, read_pv: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
+- {name: hstemp3, read_pv: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
 
 
 # apstools.devices.ad_creator:
