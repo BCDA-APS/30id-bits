@@ -254,7 +254,7 @@ apstools.devices.mb_creator:
         motors:
           x: 30idc:m58
           y: 30idc:m57
-        labels: ["slit"]
+        # labels: ["slit"]
     table:
       factory:
         function: apstools.devices.motor_factory.mb_class_factory
@@ -262,7 +262,7 @@ apstools.devices.mb_creator:
           x: 30idc:m21
           y: 30idc:m16
           z: 30idc:m23
-        labels: ["table"]
+        # labels: ["table"]
 
 - name: vfm
   prefix: "30idbt:"
