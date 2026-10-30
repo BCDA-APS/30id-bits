@@ -330,8 +330,6 @@ ophyd.EpicsMotor:
 
 - {name: geth, prefix: "30ida:m27", labels: ["motor", "Ge_th"]}
 
-- {name: tab_x1, prefix: "30idb:m20", labels: ["motor", "Table_X1_U"]}
-
 - {name: phip, prefix: "30idMCS2:m1", labels: ["motor", "PHI_plus"]}
 
 - {name: rbs_xy, prefix: "30idc:m30", labels: ["motor"]}
