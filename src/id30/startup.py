@@ -119,6 +119,9 @@ def motor_start_preprocessor(plan):
     Like bluesky, report "motor"-labeled devices in a separate stream.
 
     Look for stream "label_start_motor".
+
+    KNOWN LIMITATION: Only gets EpicsMotor devices in the global namespace, not
+    motors which are children of devices.
     """
     return label_stream_wrapper(plan, "motor")
 
