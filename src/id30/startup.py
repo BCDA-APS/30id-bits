@@ -30,6 +30,7 @@ from apsbits.utils.config_loaders import load_config
 from apsbits.utils.helper_functions import register_bluesky_magics
 from apsbits.utils.helper_functions import running_in_queueserver
 from apsbits.utils.logging_setup import configure_logging
+from apstools.plans import label_stream_wrapper
 
 # Run first so we get better diagnostics about subsequent problems
 configure_logging()
@@ -110,6 +111,16 @@ if host_on_aps_subnet():
 # Setup baseline stream with connect=False is default
 # Devices with the label 'baseline' will be added to the baseline stream.
 setup_baseline_stream(sd, oregistry, connect=False)
+
+def motor_start_preprocessor(plan):
+    """Report all motor positions.
+
+    Like SPEC, report all "motor" positions at the start of every run.
+    Like bluesky, report "motor"-labeled devices in a separate stream.
+    """
+    return label_stream_wrapper(plan, "motor")
+
+RE.preprocessors.append(motor_start_preprocessor)
 
 from .plans.sim_plans import sim_count_plan  # noqa: E402, F401
 from .plans.sim_plans import sim_print_plan  # noqa: E402, F401
