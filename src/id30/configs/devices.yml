@@ -147,6 +147,7 @@ hklpy2.creator:
 - name: herix
   geometry: E4CH
   solver: hkl_soleil
+  # TODO: connect with monochromator energy
   reals:
     th: 30idc:m26
     chi: 30idc:m27
@@ -194,7 +195,7 @@ ophyd.EpicsMotor:
 
 
 ophyd.scaler.ScalerCH:
-- name: scaler1b
+- name: scaler1
   prefix: "30idb:scaler1"
   labels: ["scaler", "detector"]
   # TODO: Add direct access to these specific channels (counters) in startup.py
@@ -222,29 +223,29 @@ ophyd.EpicsSignal:
 
 - {name: scaler1_userTran1J, read_pv: "30idb:1:userTran1.J"}
 
-# TODO: Change to read-only?
-- {name: hstemp1, read_pv: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
-- {name: hstemp2, read_pv: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
-- {name: hstemp3, read_pv: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
+# TODO: Change to read-only?  PVs not found 2026-10-30
+# - {name: hstemp1, read_pv: "30idct:D1Ch1_calc.VAL", labels: ["temperature", "baseline"]}
+# - {name: hstemp2, read_pv: "30idct:D1Ch2_calc.VAL", labels: ["temperature", "baseline"]}
+# - {name: hstemp3, read_pv: "30idct:D1Ch3_calc.VAL", labels: ["temperature", "baseline"]}
 
 
-# apstools.devices.ad_creator:
-#   - name: pilatus
-#     prefix: "s30_pilatus1:"
-#     labels: ["area_detector", "detectors"]
-#     plugins:
-#       - cam:
-#           class: apstools.devices.SimDetectorCam_V34  # FIXME: pick correct class
-#       - image
-#       - pva
-#       #- hdf1:
-#       #    # FIXME: need correct paths
-#       #    class: apstools.devices.AD_EpicsFileNameHDF5Plugin
-#       #    read_path_template: "/path/to/bluesky/tmp/"
-#       #    write_path_template: "/path/to/ioc/tmp/"
-#       - roi1
-#       - roistat1
-#       - stats1  # any other plugins?
+apstools.devices.ad_creator:
+  - name: pilatus
+    prefix: "s30_pilatus1:"
+    labels: ["area_detector", "detectors"]
+    plugins:
+      - cam:
+          class: ophyd.PilatusDetectorCam
+      - image
+      - pva
+      #- hdf1:
+      #    # FIXME: need correct paths
+      #    class: apstools.devices.AD_EpicsFileNameHDF5Plugin
+      #    read_path_template: "/path/to/bluesky/tmp/"
+      #    write_path_template: "/path/to/ioc/tmp/"
+      - roi1
+      - roistat1
+      - stats1  # any other plugins?
 # TODO: Add direct access to these specific channels in startup.py
 # # ana1 = EpicsSignal('s30_pilatus1:ROIStat1:1:Total_RBV', name='ana1', labels=('detectors',))  # Ana1
 # ana1 = pilatus.roistat1.?.total  # FIXME: syntax here
