@@ -255,12 +255,14 @@ apstools.devices.mb_creator:
       factory:
         function: apstools.devices.motor_factory.mb_class_factory
         # TODO: apstools might have a support class if there is EPICS database support
+        class_name: SampleSlit
         motors:
           x: 30idc:m58
           y: 30idc:m57
     table:
       factory:
         function: apstools.devices.motor_factory.mb_class_factory
+        class_name: SampleTable
         motors:
           x: 30idc:m21
           y: 30idc:m16
