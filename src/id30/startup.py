@@ -117,6 +117,8 @@ def motor_start_preprocessor(plan):
 
     Like SPEC, report all "motor" positions at the start of every run.
     Like bluesky, report "motor"-labeled devices in a separate stream.
+
+    Look for stream "label_start_motor".
     """
     return label_stream_wrapper(plan, "motor")
 
