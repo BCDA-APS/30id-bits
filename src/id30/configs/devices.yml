@@ -23,8 +23,8 @@ apstools.devices.mb_creator:
   motors:
     up: m18
     down: m17
-    out: m19
-    in: m20
+    outboard: m19
+    inboard: m20
   labels: ["slit"]
 
 - name: cslit
@@ -33,8 +33,8 @@ apstools.devices.mb_creator:
   motors:
     up: m18
     down: m17
-    out: m20
-    in: m19
+    outboard: m20
+    inboard: m19
   labels: ["slit"]
 
 - name: hhlm
