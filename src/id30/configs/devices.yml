@@ -14,13 +14,6 @@ apstools.devices.KohzuSeqCtl_Monochromator:
 
 apstools.devices.mb_creator:
 
-- name: apd
-  motors:
-    th: 30idb:m19
-    x: 30idb:m23
-    y: 30idb:m24
-  labels: ["FWD-APD"]
-
 - name: analyzer
   motors:
     an1:
@@ -95,6 +88,13 @@ apstools.devices.mb_creator:
           diameter: 30idd:m12
           roi_total: {read_pv: "s30_pilatus1:ROIStat1:5:Total_RBV", class: "ophyd.EpicsSignalRO"}
 
+- name: apd
+  motors:
+    th: 30idb:m19
+    x: 30idb:m23
+    y: 30idb:m24
+  labels: ["FWD-APD"]
+
 - name: b2slit
   motors:
     up: 30ida:m58
@@ -102,15 +102,6 @@ apstools.devices.mb_creator:
     inboard: 30ida:m61
     outboard: 30ida:m63
   labels: ["slit"]
-
-- name: crl
-  prefix: "30ida:"
-  motors:
-    y: "m5"
-    x: "m6"
-    ax: "m8"
-    ay: "m21"
-  labels: ["crl"]
 
 - name: bslit
   prefix: "30ida:"
@@ -128,6 +119,15 @@ apstools.devices.mb_creator:
     y: 30idb:SM10
     z: 30idb:SM9
   labels: ["B-table"]
+
+- name: crl
+  prefix: "30ida:"
+  motors:
+    y: "m5"
+    x: "m6"
+    ax: "m8"
+    ay: "m21"
+  labels: ["crl"]
 
 - name: cslit
   prefix: "30idc:"
@@ -147,19 +147,6 @@ apstools.devices.mb_creator:
     temperature3: {read_pv: "30idct:D1Ch3_calc.VAL", class: "ophyd.EpicsSignal"}
   labels: ["Heat-Stage"]
 
-- name: hhlm
-  prefix: "30ida:"
-  motors:
-    theta: "m9"
-    y1: "m10"
-    z2: "m11"
-    theta2: "m12"
-    x2: "m13"
-    chi2: "m14"
-    xt: "m15"
-    yt: "m16"
-  labels: ["mirror"]
-
 - name: hfm
   prefix: "30idbt:"
   motors:
@@ -175,6 +162,19 @@ apstools.devices.mb_creator:
     y2o: "m10"
     y3i: "m11"
   labels: ["HFM"]
+
+- name: hhlm
+  prefix: "30ida:"
+  motors:
+    theta: "m9"
+    y1: "m10"
+    z2: "m11"
+    theta2: "m12"
+    x2: "m13"
+    chi2: "m14"
+    xt: "m15"
+    yt: "m16"
+  labels: ["mirror"]
 
 - name: hkbt
   motors:
@@ -360,21 +360,6 @@ ophyd.scaler.ScalerCH:
 - name: scaler1
   prefix: "30idb:scaler1"
   labels: ["scaler", "detector"]
-  # TODO: Add direct access to these specific channels (counters) in startup.py
-  # sec = scaler1.channels.chan01.s
-  # hmic0 = scaler1.channels.chan02.s
-  # hmic1 = scaler1.channels.chan03.s
-  # hmic2 = scaler1.channels.chan04.s
-  # hmic3 = scaler1.channels.chan05.s
-  # pinb = scaler1.channels.chan06.s
-  # ampv = scaler1.channels.chan07.s
-  # amph = scaler1.channels.chan08.s
-  # fp = scaler1.channels.chan09.s
-  # fd = scaler1.channels.chan10.s
-  # apdb = scaler1.channels.chan11.s
-  # apd4 = scaler1.channels.chan12.s
-  # apdv = scaler1.channels.chan13.s
-  # apdh = scaler1.channels.chan14.s
 
 
 ophyd.EpicsSignal:

@@ -102,6 +102,24 @@ else:
     from bluesky import plan_stubs as bps  # noqa: F401
     from bluesky import plans as bp  # noqa: F401
 
+    # map scaler count signals per SPEC config
+    scaler1 = oregistry.find["scaler1"]
+    seconds = scaler1.channels.chan01.s
+    hmic0 = scaler1.channels.chan02.s
+    hmic1 = scaler1.channels.chan03.s
+    hmic2 = scaler1.channels.chan04.s
+    hmic3 = scaler1.channels.chan05.s
+    pinb = scaler1.channels.chan06.s
+    ampv = scaler1.channels.chan07.s
+    amph = scaler1.channels.chan08.s
+    fp = scaler1.channels.chan09.s
+    fd = scaler1.channels.chan10.s
+    apdb = scaler1.channels.chan11.s
+    apd4 = scaler1.channels.chan12.s
+    apdv = scaler1.channels.chan13.s
+    apdh = scaler1.channels.chan14.s
+
+
 # Experiment specific logic, device and plan loading. # Create the devices.
 make_devices(clear=False, file="devices.yml", device_manager=instrument)
 
