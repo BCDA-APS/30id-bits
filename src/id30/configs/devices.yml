@@ -115,6 +115,13 @@ apstools.devices.mb_creator:
     y: m57
   labels: ["slit"]
 
+- name: sample_table
+  motors:
+    x: 30idc:m21
+    y: 30idc:m16
+    z: 30idc:m23
+  labels: ["sample", "table"]
+
 - name: vfm
   prefix: "30idbt:"
   motors:
@@ -179,15 +186,9 @@ ophyd.EpicsMotor:
 
 - {name: phip, prefix: "30idMCS2:m1", labels: ["motor", "PHI_plus"]}
 
-- {name: s2th, prefix: "30idc:m25", labels: ["motor", "spectrometer"]}
-
 - {name: secth, prefix: "30ida:m57", labels: ["motor", "secondary_mono"]}
 - {name: secy, prefix: "30ida:m62", labels: ["motor", "secondary_mono"]}
 - {name: secx, prefix: "30ida:m60", labels: ["motor", "secondary_mono"]}
-
-- {name: stbly, prefix: "30idc:m16", labels: ["motor", "sample"]}
-- {name: stblx, prefix: "30idc:m21", labels: ["motor", "sample"]}
-- {name: stblz, prefix: "30idc:m23", labels: ["motor", "sample"]}
 
 # Remember, energy units here are "meV"
 - {name: herixE, prefix: "30idc:SM13", labels: ["motor", "energy"]}
