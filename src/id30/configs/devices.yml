@@ -69,12 +69,12 @@ apstools.devices.mb_creator:
 - name: hkbt
   prefix: "30idbt:HKBtable."
   motors:
-    x: "X"
-    y: "Y"
-    z: "Z"
-    ax: "AX"
-    ay: "AY"
-    az: "AZ"
+    x: {prefix: "X", class: "ophyd.EpicsSignal"}
+    y: {prefix: "Y", class: "ophyd.EpicsSignal"}
+    z: {prefix: "Z", class: "ophyd.EpicsSignal"}
+    ax: {prefix: "AX", class: "ophyd.EpicsSignal"}
+    ay: {prefix: "AY", class: "ophyd.EpicsSignal"}
+    az: {prefix: "AZ", class: "ophyd.EpicsSignal"}
   labels: ["HKB_table"]
 
 - name: hrm
