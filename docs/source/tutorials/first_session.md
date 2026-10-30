@@ -98,7 +98,7 @@ run.metadata["start"]
 run.primary.read()
 ```
 
-The current instrument configuration enables the SPEC-format callback. Use the local data-management procedures for locating the resulting files.
+The current instrument configuration enables the [SPEC-format callback](https://bcda-aps.github.io/apstools/latest/api/_filewriters.html#apstools.callbacks.spec_file_writer.SpecWriterCallback2). Use the local data-management procedures for locating the resulting files; see the apstools [SPEC file structure](https://bcda-aps.github.io/apstools/latest/api/_filewriters.html#spec-file-structure) reference for the file layout.
 
 ## Next Steps
 

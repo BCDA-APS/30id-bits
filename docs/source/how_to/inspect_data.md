@@ -57,7 +57,7 @@ At present, the instrument-specific baseline stream may be absent because no ord
 
 ## SPEC Output
 
-`SPEC_DATA_FILES.ENABLE` is currently true in `iconfig.yml`. The SPEC callback is intended to provide a familiar text output path for SPEC users, but file location and data-management conventions are site-specific. Confirm the active output location with beamline staff.
+`SPEC_DATA_FILES.ENABLE` is currently true in `iconfig.yml`. The [SPEC-format callback](https://bcda-aps.github.io/apstools/latest/api/_filewriters.html#apstools.callbacks.spec_file_writer.SpecWriterCallback2) is intended to provide a familiar text output path for SPEC users, but file location and data-management conventions are site-specific. Confirm the active output location with beamline staff. The apstools [SPEC file structure](https://bcda-aps.github.io/apstools/latest/api/_filewriters.html#spec-file-structure) reference describes the resulting file layout.
 
 ## Common Pitfalls
 

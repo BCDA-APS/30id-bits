@@ -42,9 +42,7 @@ and selected EPICS signals. HERIX-specific user plans are not yet defined; use
 the standard Bluesky plans described in the documentation until those plans are
 added.
 
-The SPEC-format callback is enabled in the current configuration. The exact
-output location and data-management behavior depend on the workstation and
-session setup.
+The [SPEC-format callback](https://bcda-aps.github.io/apstools/latest/api/_filewriters.html#apstools.callbacks.spec_file_writer.SpecWriterCallback2) is enabled in the current configuration. The exact output location and data-management behavior depend on the workstation and session setup. See the apstools [SPEC file structure](https://bcda-aps.github.io/apstools/latest/api/_filewriters.html#spec-file-structure) reference for the produced file layout.
 
 ## Documentation
 
