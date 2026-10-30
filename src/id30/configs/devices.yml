@@ -67,14 +67,13 @@ apstools.devices.mb_creator:
   labels: ["HFM"]
 
 - name: hkbt
-  prefix: "30idbt:HKBtable."
   motors:
-    x: {prefix: "X", class: "ophyd.EpicsSignal"}
-    y: {prefix: "Y", class: "ophyd.EpicsSignal"}
-    z: {prefix: "Z", class: "ophyd.EpicsSignal"}
-    ax: {prefix: "AX", class: "ophyd.EpicsSignal"}
-    ay: {prefix: "AY", class: "ophyd.EpicsSignal"}
-    az: {prefix: "AZ", class: "ophyd.EpicsSignal"}
+    x: {read_pv: "30idbt:HKBtable.X", class: "ophyd.EpicsSignal"}
+    y: {read_pv: "30idbt:HKBtable.Y", class: "ophyd.EpicsSignal"}
+    z: {read_pv: "30idbt:HKBtable.Z", class: "ophyd.EpicsSignal"}
+    ax: {read_pv: "30idbt:HKBtable.AX", class: "ophyd.EpicsSignal"}
+    ay: {read_pv: "30idbt:HKBtable.AY", class: "ophyd.EpicsSignal"}
+    az: {read_pv: "30idbt:HKBtable.AZ", class: "ophyd.EpicsSignal"}
   labels: ["HKB_table"]
 
 - name: hrm
